@@ -15,15 +15,14 @@
                 "type": "string",
                 "description": "Identifiant de la zone",
                 "minLength": 3,
-                "maxLength": 5
+                "maxLength": 5,
+                "pattern": "R[0-9]+"
             },
             "metric_type": {
                 "type": "string",
                 "description": "Type de metric (valeur actuelle, initiale, cible)",
                 "enum": [
-                    "vi",
-                    "va",
-                    "vc"
+                    "va"
                 ]
             },
             "metric_date": {
