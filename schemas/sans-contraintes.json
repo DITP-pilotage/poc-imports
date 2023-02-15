@@ -1,0 +1,48 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "indic_id": {
+                "type": "string",
+                "description": "Identifiant de l'indicateur",
+                "enum": [
+                    "IND-001",
+                    "IND-002"
+                ]
+            },
+            "zone_id": {
+                "type": "string",
+                "description": "Identifiant de la zone",
+                "minLength": 3,
+                "maxLength": 5
+            },
+            "metric_type": {
+                "type": "string",
+                "description": "Type de metric (valeur actuelle, initiale, cible)",
+                "enum": [
+                    "vi",
+                    "va",
+                    "vc"
+                ]
+            },
+            "metric_date": {
+                "type": "string",
+                "description": "Date où la mesure de l'indicateur a été observée. Au format \"YYYY-MM-DD\"",
+                "pattern": "20[0-9]{3}-[0-9]{2}-[0-9]{2}",
+                "format": "date-time"
+            },
+            "metric_value": {
+                "type": "string",
+                "description": "Valeur de la metric."
+            }
+        },
+        "required": [
+            "indic_id",
+            "zone_id",
+            "metric_type",
+            "metric_date",
+            "metric_value"
+        ]
+    }
+}
