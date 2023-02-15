@@ -4,7 +4,7 @@ theme: seriph
 download: true
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
-background: https://source.unsplash.com/collection/94734566/1920x1080
+background: https://images.unsplash.com/photo-1545243424-0ce743321e11?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8c3BhY2Usc3VufHx8fHx8MTY3NjQ5NTQ5NQ&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600
 # apply any windi css classes to the current slide
 class: 'text-center'
 # https://sli.dev/custom/highlighters.html
@@ -17,13 +17,12 @@ info: |
   d'import de données via
   [TableSchema](https://guides.etalab.gouv.fr/producteurs-schemas/aide-construction-tableschema) 
 fonts:
-  local: 'Marianne'
+  local: "Marianne"
 ---
 
 # POC import de données 🚀
 
 via TableSchema
-
 
 ---
 
@@ -68,12 +67,17 @@ Les périmètres 1 et 2 sont à tester:
 
 On dispose aujourd'hui des éléments suivants:
 - des schéma de données
-- des données
+- des **données**
 - des administrations/ministères/SI prêts à embarquer
 
-Mais quel validateur ?
 
+<div v-click> 
+<p>
 
+## **Mais quel validateur ?**
+
+</p>
+</div>
 ---
 
 ## Quel validateur ?
@@ -108,6 +112,8 @@ faire un schéma / indic pour par ex, empecher l'import régional.
 
 Outils de création de schémas:
 - https://guides.etalab.gouv.fr/producteurs-schemas
+- https://create.frictionlessdata.io/
+
 
 
 
