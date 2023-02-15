@@ -52,7 +52,7 @@ Enchainer une validation de données avec un import en base de données:
 
 Les périmètres 1 et 2 sont à tester:
 
-![a](/poc-imports-Périmètre_du_POC.png)
+![a](/poc-imports-Perimetre_du_POC.png)
 
 
 
