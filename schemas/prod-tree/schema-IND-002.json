@@ -7,7 +7,6 @@
                 "type": "string",
                 "description": "Identifiant de l'indicateur",
                 "enum": [
-                    "IND-001",
                     "IND-002"
                 ]
             },
