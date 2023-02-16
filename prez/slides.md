@@ -24,6 +24,46 @@ fonts:
 
 via TableSchema
 
+
+---
+
+
+# Contexte / Etat des lieux
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+
+
+Workflow actuel
+
+![a](/workflow-origin.png)
+
+</div>
+<div v-click=1>
+
+
+
+Workflow visé
+
+![a](/workflow-origin-new.png)
+
+</div>
+</div>
+
+
+---
+
+# Contexte / Idée d'interface
+
+Projet d'une nouvelle interface d'import:
+
+<div >
+
+
+<img src="/poc-imports-wireframe.png" width="500"/>
+
+</div>
+
 ---
 
 ## Objectifs
@@ -53,13 +93,15 @@ Les périmètres 1 et 2 sont à tester:
 
 ![a](/poc-imports-Perimetre_du_POC.png)
 
+--- 
 
+## Raison d'être des TableSchema
 
----
+Les TableSchema ont été construits pour modéliser des objets réels (arbres, batiments, ...).
 
-## Périmètre 1 - Questions
+Ici, on s'en servirait pour valider des entités qui n'ont pas de réalité matérielle (un fichier CSV avec les colonnes qui nous intéressent) et on en voudrait un très grand nombre.
 
-
+*Est-ce un bon usage des TableSchema ?*
 
 ---
 
@@ -100,10 +142,16 @@ On voudrait un validateur qui suive ces critères:
 
 ---
 
+# ?
 
-MISC:
 
-faire un schéma / indic pour par ex, empecher l'import régional.
+Interrogations:
+- comment passer d'un json-schema a tableschema
+- bonne idée d'avoir 500 schema ? J'ai vu qu'on pouvait combiner des schema. Donc un schema general + des patch pour chaque indic ?
+- le plus simple pour avoir un validateur avec tous mes schema est surement d'étendre une API de validation pour en créer une nouvelle avec mes messages de validations ?
+- data package, pas utile dans notre cas ? 
+- repo github pour héberger ces schema
+- quels outils d'aide construction de schema ? Comme Stoplight ou Swagger pour les API OpenApi ou [bjdash.github.io](https://bjdash.github.io/JSON-Schema-Builder/)
 
 ---
 
