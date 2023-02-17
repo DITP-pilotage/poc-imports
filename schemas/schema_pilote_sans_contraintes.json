@@ -67,7 +67,7 @@
          "type":"string",
          "constraints":{
             "required":true,
-            "pattern":"^(D[0-9]{2-3})|(R[0-9]{2-3})|(A[0-9]{2-3})|(FRANCE)$"
+            "pattern":"^((D[0-9]{2,3})|(R[0-9]{2,3})|(A[0-9]{2,3})|FRANCE)$"
          }
       },
       {
