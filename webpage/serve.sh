@@ -1,0 +1,1 @@
+docker run -it -p 8084:80 -v ${PWD}:/usr/local/apache2/htdocs httpd
