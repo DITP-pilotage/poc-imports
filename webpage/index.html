@@ -1,0 +1,70 @@
+<head>
+  <link rel="stylesheet" href="style.css">
+   <script src="index.js" defer></script> 
+</head>
+<body>
+<h1>Import de données</h1>
+
+<div class="container">
+  <form id="validationForm" action="#" onsubmit="return onValidateData(this);return false">
+    <div class="row">
+      <h2>1-Validatcion</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="indicId" class="required">Nom de l'indicateur</label>
+      </div>
+      <div class="col-75">
+        <select id="indicId" name="indicId">
+
+          <option value="ind-001">001 - Nom Indicateur 1</option>
+          <option value="ind-002">002 - Nom Indicateur 2</option>
+          <option value="ind-003">003 - Indicateur arbres</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="userComment">Commentaire sur l'import</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="userComment" name="userComment" placeholder="Votre commentaire sur l'import">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="subject" class="required">Fichier à importer</label>
+      </div>
+      <div class="col-75">
+        <input type="file" accept=".xlsx,.csv" id="myFile" name="filename" required>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="row">
+    <button type="button" onclick="onValidateData(document.getElementById('validationForm'))">Valider les données</button>
+
+  </div>
+
+  <form onsubmit="onImportData(this)" id="importDataForm">
+    <div class="row">
+      <h2>2-Import</h2>
+    </div>
+
+    <div class="row">
+      <div>Données valides: <span id="resultLabel">En attente de saisie...</span> </div>
+
+    </div>
+
+  </form>
+
+  <div class="row">
+    <button type="button" onclick="onImportData(document.getElementById('importDataForm'))">Importer les données</button>
+
+  </div>
+</div>
+</body>
