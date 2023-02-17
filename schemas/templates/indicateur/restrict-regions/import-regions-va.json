@@ -1,8 +1,8 @@
 {
    "$schema":"https://specs.frictionlessdata.io/schemas/table-schema.json",
-   "name":"Inidicateur Pilote sans contraintes",
-   "title":"Inidicateur Pilote sans contraintes",
-   "description":"Spécification d'un fichier d'import d'indicateur Pilote sans contraintes",
+   "name":"Inidicateur Pilote pour import régional uniquement",
+   "title":"Inidicateur Pilote pour import régional uniquement",
+   "description":"Spécification d'un fichier d'import d'indicateur Pilote qui permet uniquement un import de données régionales.",
    "keywords":[
       "pilote",
       "ditp"
@@ -67,12 +67,12 @@
       },
       {
          "name":"zone_id",
-         "description":"Identifiant de la zone pour laquelle on importe une valeur.",
-         "example":"D46",
+         "description":"Identifiant de la zone pour laquelle on importe une valeur. Seul des identifiants de régions peuvent être spécifiés ici.",
+         "example":"R84",
          "type":"string",
          "constraints":{
             "required":true,
-            "pattern":"^((D[0-9]{2,3})|(R[0-9]{2,3})|(A[0-9]{2,3})|FRANCE)$"
+            "pattern":"^(R[0-9]{2,3})$"
          }
       },
       {
