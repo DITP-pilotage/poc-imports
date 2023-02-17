@@ -10,6 +10,8 @@ function getConfig() {
       "https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/prod-tree/schema-IND-002.json",
     "ind-003":
       "https://schema.data.gouv.fr/schemas/NaturalSolutions/schema-arbre/0.3.0/schema.json"
+    "ind-004": "https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/restrict-regions/import-regions-va.json"
+    "ind-005": "https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/sans-contraintes/schema_pilote_sans_contraintes.json"
   };
 
 
