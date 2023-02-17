@@ -5,7 +5,7 @@ on:
       - '*'
 env:
   DEPLOY_BRANCH: retype-deploy
-  DEPLOY_DIR_ROOT: deployments
+  DEPLOY_DIR_ROOT: deployments/public
 
 
 jobs:
