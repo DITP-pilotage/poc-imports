@@ -83,7 +83,6 @@
       {
          "name":"metric_type",
          "description":"Type de la donnée importée. vi/va/vc",
-         "example":"vi",
          "type":"string",
          "constraints":{
             "required":true,
