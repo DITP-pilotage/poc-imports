@@ -9,7 +9,7 @@
    ],
    "countryCode":"FR",
    "homepage":"https://github.com/DITP-pilotage/poc-imports",
-   "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/sans-contraintes/schema_pilote_sans_contraintes.json",
+   "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/restrict-regions/import-regions-va.json",
    "licenses":[
       {
          "title":"-",
@@ -21,17 +21,17 @@
       {
          "title":"Fichier valide (CSV)",
          "name":"exemple-valide-csv",
-         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/sans-contraintes/indic-pilote-base-ok.csv"
+         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/restrict-regions/indic-pilote-regions-ok.csv"
       },
       {
          "title":"Fichier invalide (CSV)",
          "name":"exemple-invalide-csv",
-         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/sans-contraintes/indic-pilote-base-ko.csv"
+         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/restrict-regions/indic-pilote-regions-ko.csv"
       },
       {
-         "title":"Ressource valide (XLSX)",
-         "name":"exemple-valide-xlsx",
-         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/sans-contraintes/indic-pilote-base-ok.xlsx"
+         "title":"Ressource invalide (XLSX)",
+         "name":"exemple-invalide-xlsx",
+         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/restrict-regions/indic-pilote-regions-ko.xlsx"
       }
    ],
    "sources":[
