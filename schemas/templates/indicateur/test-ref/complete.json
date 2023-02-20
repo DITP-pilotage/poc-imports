@@ -67,7 +67,8 @@
       },
       { 
          "name":"zone_id",
-         "type": {"$ref": "https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/test-ref/zone.json/schemas/zone"} }
+         "type": "string",
+         "rdfType": {"$ref": "https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/test-ref/zone.json/schemas/zone"}}
    ],
    "primaryKey":[
       "indic_id",
