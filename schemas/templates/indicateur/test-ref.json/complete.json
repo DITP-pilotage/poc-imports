@@ -1,0 +1,76 @@
+complete.json{
+   "$schema":"https://specs.frictionlessdata.io/schemas/table-schema.json",
+   "name":"Inidicateur Pilote sans contraintes",
+   "title":"Inidicateur Pilote sans contraintes",
+   "description":"Spécification d'un fichier d'import d'indicateur Pilote sans contraintes",
+   "keywords":[
+      "pilote",
+      "ditp"
+   ],
+   "countryCode":"FR",
+   "homepage":"https://github.com/DITP-pilotage/poc-imports",
+   "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/sans-contraintes/schema_pilote_sans_contraintes.json",
+   "licenses":[
+      {
+         "title":"-",
+         "name":"-",
+         "path":"-"
+      }
+   ],
+   "resources":[
+      {
+         "title":"Fichier valide (CSV)",
+         "name":"exemple-valide-csv",
+         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/sans-contraintes/indic-pilote-base-ok.csv"
+      },
+      {
+         "title":"Fichier invalide (CSV)",
+         "name":"exemple-invalide-csv",
+         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/sans-contraintes/indic-pilote-base-ko.csv"
+      },
+      {
+         "title":"Ressource valide (XLSX)",
+         "name":"exemple-valide-xlsx",
+         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/sans-contraintes/indic-pilote-base-ok.xlsx"
+      }
+   ],
+   "sources":[
+      
+   ],
+   "created":"2023-02-17",
+   "lastModified":"2023-02-17",
+   "version":"0.0.1",
+   "contributors":[
+      {
+         "title":"Colin Dugeai",
+         "email":"colin.dugeai@modernisation.gouv.fr",
+         "organisation":"DITP",
+         "role":"author"
+      },
+      {
+         "title":"Geoffrey Aldebert",
+         "email":"geoffrey.aldebert@data.gouv.fr",
+         "organisation":"Etalab",
+         "role":"contributor"
+      }
+   ],
+   "fields":[
+      {
+         "name":"indic_id",
+         "description":"Identifiant de l'indicateur. Au format 'IND-XXX'",
+         "example":"IND-001",
+         "type":"string",
+         "constraints":{
+            "required":true,
+            "pattern":"^IND-[0-9]{3}$"
+         }
+      },
+      { "$ref": "https://example.com/zone.json/schemas/zone" }
+   ],
+   "primaryKey":[
+      "indic_id",
+      "zone_id",
+      "metric_date",
+      "metric_type"
+   ]
+}
