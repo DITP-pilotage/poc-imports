@@ -65,7 +65,9 @@
             "pattern":"^IND-[0-9]{3}$"
          }
       },
-      { "$ref": "https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/test-ref/zone.json/schemas/zone" }
+      { 
+         "name":"zone_id",
+         "type": {"$ref": "https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/templates/indicateur/test-ref/zone.json/schemas/zone"} }
    ],
    "primaryKey":[
       "indic_id",
