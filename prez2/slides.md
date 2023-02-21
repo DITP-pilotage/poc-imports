@@ -11,22 +11,19 @@ class: 'text-center'
 highlighter: shiki
 # some information about the slides, markdown enabled
 info: |
-  ## POC imports
+  ## POC imports - Suite
 
   Présentation d'un poc
   d'import de données via
-  [TableSchema](https://guides.etalab.gouv.fr/producteurs-schemas/aide-construction-tableschema) 
+  [TableSchema](https://guides.etalab.gouv.fr/producteurs-schemas/aide-construction-tableschema).
+  Suite avec quelques implémentations.
 fonts:
   local: "Marianne"
 ---
 
-# POC import de données 🚀 SP
+# POC import de données 🚀 - Suite
 
 via TableSchema
-
-
----
-
 
 
 ---
@@ -37,18 +34,21 @@ Les vérifications *statiques* sont des vérifications simples sur le formattage
 
 Par exemple:
 - vérifier une valeur contre une expression régulière
-- mettre des valeurs plancher/seuil
+- mettre des valeurs min/max
 - s'assurer qu'une cellule n'est pas vide
 
 
 *Implémentation:* Simple avec un *TableSchema* et un validateur.
 
 
+
 ---
 
 # 2- Checks fonctionnels
 
-Les vérifications *fonctionnelles* ont pour but de vérifier si les données entrées ont du sens. On ne va tester ces vérifications uniquement si les checks statiques sont passés.
+-
+
+Les vérifications *fonctionnelles* ont pour but de vérifier si les données entrées **ont du sens**. On ne va tester ces vérifications **uniquement si les checks statiques sont passés**.
 
 
 ---
@@ -86,9 +86,10 @@ Les **checks d'existence** ont pour but de vérifier les les entitées manipulé
 # 2- Checks fonctionnels
 ## 2.2- Autorisation
 
-Les **checks d'autorisation** ont pour objet de vérifier si un utilisateur est autorisé à modifier ces données. Cela doit se faire en cohérence avec les droits définis dans l'application.
+Les **checks d'autorisation** ont pour objet de:
+- vérifier si un utilisateur est autorisé à modifier ces données. Cela doit se faire en cohérence avec les droits définis dans l'application.
 
-*Implémentation:* Moyen. A l'aide des rôles définis par utilisateur. Ces rôles ne sont pas encore implémentés.
+- *Implémentation:* Moyen. A l'aide des rôles définis par utilisateur. Ces rôles ne sont pas encore implémentés.
 
 
 
@@ -97,23 +98,19 @@ Les **checks d'autorisation** ont pour objet de vérifier si un utilisateur est 
 # 2- Checks fonctionnels
 ## 2.3- Analytiques
 
-Les **checks analytiques** ont pour objet de tester la cohérence des données au regard de leur sens pour le métier. 
+Les **checks analytiques** ont pour objet de 
+- tester la cohérence des données au regard de leur **sens pour le métier**
 
-Par exemple, on pourrait vouloir vérifier qu'il n'y a pas une trop grande variance de la valeur d'un indicateur d'un mois sur l'autre. Ou encore une connaissance métier pourrait nous pousser à vérifier que la somme des valeurs des X derniers mois est inférieurs à une valeur Y.
+- *Implémentation:* Complexe. A l'aide de connaissances métiers poussées et mise en place technique complexe.
 
-
-
-
-
-
-*Implémentation:* Complexe. A l'aide de connaissances métiers poussées et mise en place technique complexe.
+Par exemple, on pourrait vouloir vérifier qu'il n'y a pas une trop grande variance de la valeur d'un indicateur d'un mois sur l'autre. Ou encore une connaissance métier pourrait nous pousser à vérifier que la somme des valeurs des X derniers mois est inférieure à une valeur Y.
 
 
 ---
 
 # Checks - Résumé
 
-Voici les différents types de vérification, une proposition d'implémentation et sa complexité estimée:
+Voici les différents types de vérification, une proposition d'implémentation et leur complexité estimée:
 
 | Type        |     | Nom          | Complexité | Nécessite           |
 |-------------|-----|--------------|------------|--------------------------|
@@ -130,7 +127,13 @@ Voici les différents types de vérification, une proposition d'implémentation 
 
 # Implémentations
 
-J'ai démarré des implémentations pour certains de ces checks
+J'ai démarré des implémentations pour certaines de ces vérifications.
+
+Je vais vous présenter les différents travaux que j'ai réalisés sur les:
+- 1. Test Statique
+- 2.1 Test d'existence
+- 2.2 Test d'autorisation - en attente des rôles
+- 2.3 Analytiques - pas démarré / hors périmètre
 
 
 ---
@@ -139,7 +142,7 @@ J'ai démarré des implémentations pour certains de ces checks
 ## 1- Statique
 
 
-Définition de **tests statiques** à l'aide de [*TableSchema*](https://specs.frictionlessdata.io/table-schema/) et de l'[API Validata](https://api.validata.etalab.studio/apidocs).
+Définition de **tests statiques** à l'aide de [*TableSchema*](https://specs.frictionlessdata.io/table-schema/) et de l'[API Validata](https://api.validata.etalab.studio/apidocs) + interface de saisie.
 
 
 
@@ -247,3 +250,95 @@ Extrait du *TableSchema*
 
 # Implémentations
 ## 2.1- Existence
+
+Tests d'existence compatibles avec le second modèle de données que j'ai mis en place (présenté à Fabien/Louise) contenant la notion de **revisions** (pour l'historisation).
+
+
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+
+
+
+
+<img src="/model-fk.png" width="350"/>
+
+*Extrait du modèle*
+
+</div>
+<div>
+
+
+Ce modèle contient une unique table par entité (Chantier, PPG, Porteur, Zone, ...) avec une **contrainte sur l'identifiant** de l'entité qui **doit exister dans une table de référence**.
+
+
+</div>
+</div>
+
+
+Si l'on tente d'insérer une entité dont l'identifiant n'est pas dans la table de référence, la base de données va retourner une erreur qui pourra être transmise à l'utilisateur final.
+
+
+
+---
+
+# Implémentations
+## 2.2- Autorisation
+
+Dépend de l'implémentation choisie pour les rôles. Rappel de ma modélisation par *preset/roles*.
+
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+
+
+
+```ts {7-13|all}
+role:
+  - nom: prefet-R84
+    preset:
+      - nom: pref-X
+        params:
+          - zone-id: "R84"
+  - nom: "perso-1"
+    preset:
+      - nom: pref-X
+        params:
+          - zone-id: "R84"
+      - nom: visitor-91
+        params: []
+```
+
+*Role* `perso-1`, composé des preset `pref-X` et `visitor-91`
+
+
+</div>
+<div>
+
+```yml
+preset:
+  - nom: visitor-91
+    zone:
+      show: ["D91"]
+      hide: []
+      recursiveOn: []
+    chantier:
+      show: ["CH-005", "PER-03"]
+      hide: []
+    blocs:
+      edit: []
+      hide: ["id:meteo", "id:synthese"]
+```
+
+*Preset* `visitor-91`
+
+</div>
+</div>
+
+
+---
+
+# Implémentations
+## 2.3- Analytique
+
+Je n'ai rien démarré sur ce sujet.
