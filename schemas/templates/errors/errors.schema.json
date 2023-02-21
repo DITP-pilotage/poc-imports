@@ -1,0 +1,60 @@
+{
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type": "array",
+            "description": "Liste des erreurs",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "nom": {
+                        "type": "string",
+                        "description": "Nom de l'erreur. Uniquement utile pour la documentation interne. Ce message ne sera pas transmis à l'utilisateur.",
+                        "minLength": 5
+                    },
+                    "validata": {
+                        "type": "object",
+                        "description": "Référence les champs retournés par l'API validata lorsqu'une erreur de validation survient.",
+                        "properties": {
+                            "fieldName": {
+                                "type": "string",
+                                "description": "Nom du champ qui a rencontré une erreur lors de la validation."
+                            },
+                            "code": {
+                                "type": "string",
+                                "description": "Nom du code d'erreur de validation.",
+                                "enum": [
+                                    "constraint-error",
+                                    "primary-key-error"
+                                ]
+                            },
+                            "note": {
+                                "type": "string",
+                                "description": "Champ note renvoyé par validata lors d'une erreur."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "Champ name renvoyé par validata lors d'une erreur."
+                            }
+                        },
+                        "required": [
+                            "code"
+                        ]
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Message d'erreur renvoyé à l'utilisateur. Possibilité d'insérer des paramètres comme \":validata.rowPosition:\" ou \":validata.cell:\" pour insérer des valeurs dans ce message.",
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "nom",
+                    "message"
+                ]
+            }
+        }
+    },
+    "required": [
+        "errors"
+    ]
+}
