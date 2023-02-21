@@ -32,7 +32,7 @@ via TableSchema
 
 # Intro
 
-A la suite de discussions avec Etalab et l'ANCT, nous souhaitons poursuivre l'utilisation du standard *TableSchema* (déjà largement utilisé sur *data.gouv.fr* et *transport.data.gouv.fr*) pour la vérification de données.
+A la suite de discussions avec Etalab et l'ANCT, la DITP souhaite poursuivre l'utilisation du standard *TableSchema* (déjà largement utilisé sur *data.gouv.fr* et *transport.data.gouv.fr*) pour la vérification de données.
 
 En effet, le respect de ce standard permet une uniformisation des données et un meilleur suivi et circulation de celles-ci. La solution *TableSchema* est une solution simple pour **documenter la structure de fichiers de données tabulaires**. Un validateur en ligne hébergé par Etalab permet de vérifier des données sans implémenter un nouveau moteur de validation, ce qui présente un **gain de temps considérable**.
 
@@ -58,9 +58,10 @@ Par exemple:
 - s'assurer qu'une cellule n'est pas vide
 
 
-*Implémentation:* Simple avec un *TableSchema* et un validateur.
+*Implémentation:* 
+- Simple avec un *TableSchema* et un validateur.
 
-
+*Exemple*: L'id de l'indicateur est bien sous la forme "IND-XXX".
 
 ---
 
@@ -99,6 +100,7 @@ Les **checks d'existence** ont pour but de vérifier les les entitées manipulé
 </div>
 </div>
 
+*Exemple*: Vérifie que l'id de l'indicateur est existant dans la base. Refuse l'import de données pour "IND-777". 
 
 ---
 
@@ -112,6 +114,7 @@ Les **checks d'autorisation** ont pour objet de:
 *Implémentation:* 
 - Moyen. A l'aide des rôles définis par utilisateur. Ces rôles ne sont pas encore implémentés.
 
+*Exemple*: Vérifie que l'utilisateur actuel a bien le droit d'import pour l'indicateur "IND-003". 
 
 
 ---
@@ -123,11 +126,11 @@ Les vérifications *fonctionnelles* ont pour but de vérifier si les données en
 Les **checks analytiques** ont pour objet de 
 - tester la cohérence des données au regard de leur **sens pour le métier**
 
-Par exemple, on pourrait vouloir vérifier qu'il n'y a pas une trop grande variance de la valeur d'un indicateur d'un mois sur l'autre. Ou encore une connaissance métier pourrait nous pousser à vérifier que la somme des valeurs des X derniers mois est inférieure à une valeur Y.
 
 *Implémentation:* 
 - Complexe. A l'aide de connaissances métiers poussées et mise en place technique complexe.
 
+*Exemple*: on pourrait vouloir vérifier qu'il n'y a pas une trop grande variance de la valeur d'un indicateur d'un mois sur l'autre. Ou encore une connaissance métier pourrait nous pousser à vérifier que la somme des valeurs des X derniers mois est inférieure à une valeur Y.
 
 
 
@@ -145,25 +148,34 @@ Voici les différents types de vérification, une proposition d'implémentation 
 | Fonctionnel | 2.3 | Analytique   | ![](https://img.shields.io/badge/%E2%AD%90%E2%AD%90%E2%AD%90-red)        | Outil annexe + métier    | ![](https://progress-bar.dev/5/)  |
 
 *Note:* 
-- Le *2.3* me semble hors périmètre pour le moment.
+- Le *2.3* me semble hors périmètre pour le moment ?
 - La colonne *Erreurs couvertes* présente une estimation de la fréquence de l'erreur sur le total d'erreurs rencontrées. Par exemple, le type **2.2** représente 20% du total des erreurs.
 
 ---
 
-# Check workflow 1/2
+# Check workflow 1/3
 
-Voici un enchainement logique des différents checks: 
+Voici un enchainement possible des différents checks: 
 
 <img src="/poc-imports-with_errors.png"/>
 
 
 ---
 
-# Check workflow 2/2
+# Check workflow 2/3
 
 Et le périmètre du POC:
 
 <img src="/poc-imports-with_errors_perim.png"/>
+
+---
+
+# Check workflow 3/3 - Périmètre restreint
+
+Dans un premier temps, on peut se retreindre à cette architecture:
+
+<img src="/poc-imports-scope_v1.png"/>
+
 
 ---
 
@@ -384,3 +396,34 @@ preset:
 ## 2.3- Analytique
 
 Je n'ai rien démarré sur ce sujet.
+
+
+---
+
+# Pseudo-code
+
+Pseudo-code qui traduit l'idée de l'enchainement des méthodes, avec une récupération unique des messages d'erreur.
+
+```ts
+function handleImport(fileContent, indicId) {
+  
+  // Récupère le schéma
+  let schema = getSchema(indicId)
+
+  (fileContent)
+    .then(() => validateStatic(fileContent, schema))              // Validation 1.
+    .then(() => validateLineCount(fileContent, schema))           // Validation perso sur le nombre de lignes
+    .then(() => validateAuth(fileContent, currentUser))           // Validation 2.2
+    .then(() => validateAnalytics(fileContent, analyticRules))    // Validation 2.3
+    .then(() => validateExistence(fileContent))                   // Validation 2.1 (via INSERT dans la db + FK)
+    .then(() => alertUser("Import réussi"))
+    .catch((e) => {
+      if (e instanceof ValidationError) {
+        // Il s'agit d'une erreur de validation prédéfinie
+        alertUser(e.message);
+      } else {
+        throw e; 
+      }
+    })
+}
+```
