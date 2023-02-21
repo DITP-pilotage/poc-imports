@@ -11,19 +11,39 @@ class: 'text-center'
 highlighter: shiki
 # some information about the slides, markdown enabled
 info: |
-  ## POC imports - Suite
+  ## POC imports - Checks
 
   Présentation d'un poc
   d'import de données via
   [TableSchema](https://guides.etalab.gouv.fr/producteurs-schemas/aide-construction-tableschema).
-  Suite avec quelques implémentations.
+  Suite avec quelques implémentations de checks.
 fonts:
   local: "Marianne"
 ---
 
-# POC import de données 🚀 - Suite
+# POC import de données 🚀 - Checks
 
 via TableSchema
+
+
+
+
+---
+
+# Intro
+
+A la suite de discussions avec Etalab et l'ANCT, nous souhaitons poursuivre l'utilisation du standard *TableSchema* (déjà largement utilisé sur *data.gouv.fr* et *transport.data.gouv.fr*) pour la vérification de données.
+
+En effet, le respect de ce standard permet une uniformisation des données et un meilleur suivi et circulation de celles-ci. La solution *TableSchema* est une solution simple pour **documenter la structure de fichiers de données tabulaires**. Un validateur en ligne hébergé par Etalab permet de vérifier des données sans implémenter un nouveau moteur de validation, ce qui présente un **gain de temps considérable**.
+
+Néanmoins, ce type de validation est **statique** et ne permet pas de réaliser toutes les vérifications de cohérence des données (*check*). Dans ce document, je vais donc vous présenter le cadre dans lequel la solution *TableSchema* est **pertinente et efficace**:
+- *1- Check statiques*
+
+et le reste des points de contrôle de cohérence pour lesquels elle n'est **pas suffisante**:
+
+- *2.1- Checks fonctionnels* | Existence
+- *2.2- Checks fonctionnels* | Autorisation
+- *2.3- Checks fonctionnels* | Analytiques
 
 
 ---
@@ -45,15 +65,13 @@ Par exemple:
 ---
 
 # 2- Checks fonctionnels
-
--
-
 Les vérifications *fonctionnelles* ont pour but de vérifier si les données entrées **ont du sens**. On ne va tester ces vérifications **uniquement si les checks statiques sont passés**.
 
 
 ---
 
 # 2- Checks fonctionnels
+Les vérifications *fonctionnelles* ont pour but de vérifier si les données entrées **ont du sens**. On ne va tester ces vérifications **uniquement si les checks statiques sont passés**.
 ## 2.1- Existence
 
 
@@ -74,7 +92,8 @@ Contrainte de clé étrangère:
 
 Les **checks d'existence** ont pour but de vérifier les les entitées manipulées existent ou non. Pour cela, on a besoin de vérifier leur présence ou non dans la base de données.
 
-*Implémentation:* Simple. A l'aide de clés étrangères (FK) dans la base de données.
+*Implémentation:* 
+- Simple. A l'aide de clés étrangères (FK) dans la base de données.
 
 
 </div>
@@ -84,26 +103,32 @@ Les **checks d'existence** ont pour but de vérifier les les entitées manipulé
 ---
 
 # 2- Checks fonctionnels
+Les vérifications *fonctionnelles* ont pour but de vérifier si les données entrées **ont du sens**. On ne va tester ces vérifications **uniquement si les checks statiques sont passés**.
 ## 2.2- Autorisation
 
 Les **checks d'autorisation** ont pour objet de:
 - vérifier si un utilisateur est autorisé à modifier ces données. Cela doit se faire en cohérence avec les droits définis dans l'application.
 
-- *Implémentation:* Moyen. A l'aide des rôles définis par utilisateur. Ces rôles ne sont pas encore implémentés.
+*Implémentation:* 
+- Moyen. A l'aide des rôles définis par utilisateur. Ces rôles ne sont pas encore implémentés.
 
 
 
 ---
 
 # 2- Checks fonctionnels
+Les vérifications *fonctionnelles* ont pour but de vérifier si les données entrées **ont du sens**. On ne va tester ces vérifications **uniquement si les checks statiques sont passés**.
 ## 2.3- Analytiques
 
 Les **checks analytiques** ont pour objet de 
 - tester la cohérence des données au regard de leur **sens pour le métier**
 
-- *Implémentation:* Complexe. A l'aide de connaissances métiers poussées et mise en place technique complexe.
-
 Par exemple, on pourrait vouloir vérifier qu'il n'y a pas une trop grande variance de la valeur d'un indicateur d'un mois sur l'autre. Ou encore une connaissance métier pourrait nous pousser à vérifier que la somme des valeurs des X derniers mois est inférieure à une valeur Y.
+
+*Implémentation:* 
+- Complexe. A l'aide de connaissances métiers poussées et mise en place technique complexe.
+
+
 
 
 ---
@@ -112,16 +137,33 @@ Par exemple, on pourrait vouloir vérifier qu'il n'y a pas une trop grande varia
 
 Voici les différents types de vérification, une proposition d'implémentation et leur complexité estimée:
 
-| Type        |     | Nom          | Complexité | Nécessite           |
-|-------------|-----|--------------|------------|--------------------------|
-| Statique    | 1   | Statique     | ![](https://img.shields.io/badge/%E2%AD%90-green)          | *TableSchema* + validateur |
-| Fonctionnel | 2.1 | Existence    | ![](https://img.shields.io/badge/%E2%AD%90-green)         | Db + FK                  |
-| Fonctionnel | 2.2 | Autorisation | ![](https://img.shields.io/badge/%E2%AD%90%E2%AD%90-yellow)         | Rôles            |
-| Fonctionnel | 2.3 | Analytique   | ![](https://img.shields.io/badge/%E2%AD%90%E2%AD%90%E2%AD%90-red)        | Outil annexe + métier    |
+| Type        |     | Nom          | Complexité | Nécessite           | Erreurs couvertes |
+|-------------|-----|--------------|------------|--------------------------|---|
+| Statique    | 1   | Statique     | ![](https://img.shields.io/badge/%E2%AD%90-green)          | *TableSchema* + validateur | ![](https://progress-bar.dev/50/) |
+| Fonctionnel | 2.1 | Existence    | ![](https://img.shields.io/badge/%E2%AD%90-green)         | Db + FK                  | ![](https://progress-bar.dev/25/) |
+| Fonctionnel | 2.2 | Autorisation | ![](https://img.shields.io/badge/%E2%AD%90%E2%AD%90-yellow)         | Rôles            | ![](https://progress-bar.dev/20/) |
+| Fonctionnel | 2.3 | Analytique   | ![](https://img.shields.io/badge/%E2%AD%90%E2%AD%90%E2%AD%90-red)        | Outil annexe + métier    | ![](https://progress-bar.dev/5/)  |
 
-*Note:* Le *2.3* me semble hors périmètre pour le moment.
+*Note:* 
+- Le *2.3* me semble hors périmètre pour le moment.
+- La colonne *Erreurs couvertes* présente une estimation de la fréquence de l'erreur sur le total d'erreurs rencontrées. Par exemple, le type **2.2** représente 20% du total des erreurs.
+
+---
+
+# Check workflow 1/2
+
+Voici un enchainement logique des différents checks: 
+
+<img src="/poc-imports-with_errors.png"/>
 
 
+---
+
+# Check workflow 2/2
+
+Et le périmètre du POC:
+
+<img src="/poc-imports-with_errors_perim.png"/>
 
 ---
 
@@ -251,7 +293,7 @@ Extrait du *TableSchema*
 # Implémentations
 ## 2.1- Existence
 
-Tests d'existence compatibles avec le second modèle de données que j'ai mis en place (présenté à Fabien/Louise) contenant la notion de **revisions** (pour l'historisation).
+Tests d'existence compatibles avec le second modèle de données que j'ai mis en place (présenté à Fabien et Louise) contenant la notion de **revisions** (pour l'historisation).
 
 
 
@@ -285,7 +327,7 @@ Si l'on tente d'insérer une entité dont l'identifiant n'est pas dans la table 
 # Implémentations
 ## 2.2- Autorisation
 
-Dépend de l'implémentation choisie pour les rôles. Rappel de ma modélisation par *preset/roles*.
+Dépend de l'implémentation choisie pour les rôles. Rappel de ma modélisation par *preset/roles* (présenté à Sébastien et Yannick).
 
 
 <div class="grid grid-cols-2 gap-4">
