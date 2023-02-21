@@ -5,7 +5,7 @@ errors:
       code: "constraint-error"
       note: "constraint \"required\" is \"True\""
     message: "Un indicateur ne peut etre vide. C'est le cas à la ligne :validata:rowPosition:."
-  - name: "Regex indicateur ko"
+  - nom: "Regex indicateur ko"
     validata:
       fieldName: "indic_id"
       code: "constraint-error"
