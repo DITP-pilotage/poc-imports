@@ -1,0 +1,17 @@
+descriptions:
+  - schema: "sans-contraintes.json"
+    description: "Pas de contraintes particulières pour l'import des données pour cet indicateur."
+  - schema: "restrict-0-100.json"
+    description: "Pour cet indicateur, les valeurs importées doivent être comprises entre 0 et 100."
+  - schema: "restrict-dept.json"
+    description: "Pour cet indicateur, vous ne pouvez importer des données uniquement au niveau départmental."
+  - schema: "restrict-region.json"
+    description: "Pour cet indicateur, vous ne pouvez importer des données uniquement au niveau régional."
+  - schema: "restrict-drom.json"
+    description: "Pour cet indicateur, vous ne pouvez importer des données uniquement pour les DROM. Les codes zones associés sont D971, D972, D973, D974 ou D976."
+  - schema: "restrict-zfe.json"
+    description: "Pour cet indicateur, vous ne pouvez importer des données que pour les zones concernées pour le ZFE. Les codes zones associés sont D69 ou R84."
+  - schema: "restrict-dept-alternative-structure.json"
+    rules: 
+      - "Pour cet indicateur, vous ne pouvez importer des données uniquement au niveau départmental."
+      - "Exemple de seconde règle si existe"
