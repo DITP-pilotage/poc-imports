@@ -1,15 +1,15 @@
 {
    "$schema":"https://specs.frictionlessdata.io/schemas/table-schema.json",
-   "name":"Indicateur Pilote sans contraintes",
-   "title":"Indicateur Pilote sans contraintes",
-   "description":"Spécification d'un fichier d'import d'indicateur Pilote sans contraintes",
+   "name":"Indicateur Pilote pour saisie entre 0 et 100",
+   "title":"Indicateur Pilote pour saisie entre 0 et 100",
+   "description":"Spécification d'un fichier d'import d'indicateur Pilote pour saisie entre 0 et 100",
    "keywords":[
       "pilote",
       "ditp"
    ],
    "countryCode":"FR",
    "homepage":"https://github.com/DITP-pilotage/poc-imports",
-   "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/prod/sans-contraintes.json",
+   "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/prod/restrict-0-100.json",
    "licenses":[
       {
          "title":"-",
@@ -21,24 +21,19 @@
       {
          "title":"Fichier valide (CSV)",
          "name":"exemple-valide-csv",
-         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/prod/example/sans-contraintes-ok.csv"
+         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/prod/example/restrict-0-100-ok.csv"
       },
       {
          "title":"Fichier invalide (CSV)",
          "name":"exemple-invalide-csv",
-         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/prod/example/sans-contraintes-ko.csv"
-      },
-      {
-         "title":"Ressource valide (XLSX)",
-         "name":"exemple-valide-xlsx",
-         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/prod/example/sans-contraintes-ok.xlsx"
+         "path":"https://raw.githubusercontent.com/DITP-pilotage/poc-imports/master/schemas/prod/example/restrict-0-100-ko.csv"
       }
    ],
    "sources":[
       
    ],
-   "created":"2023-02-17",
-   "lastModified":"2023-02-17",
+   "created":"2023-04-27",
+   "lastModified":"2023-04-27",
    "version":"0.0.1",
    "contributors":[
       {
@@ -46,12 +41,6 @@
          "email":"colin.dugeai@modernisation.gouv.fr",
          "organisation":"DITP",
          "role":"author"
-      },
-      {
-         "title":"Geoffrey Aldebert",
-         "email":"geoffrey.aldebert@data.gouv.fr",
-         "organisation":"Etalab",
-         "role":"contributor"
       }
    ],
    "fields":[
@@ -102,10 +91,12 @@
       {
          "name":"valeur",
          "description":"Valeur de l'indicateur",
-         "example":"12.23",
+         "example":"22",
          "type":"number",
          "constraints":{
-            "required":true
+            "required":true,
+            "minimum":0,
+            "maximum":100
          }
       }
    ],
