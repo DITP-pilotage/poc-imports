@@ -1,25 +1,25 @@
 errors:
   - nom: "Id indicateur manquant"
     validata:
-      fieldName: "indic_id"
+      fieldName: "identifiant_indic"
       code: "constraint-error"
       note: "constraint \"required\" is \"True\""
     message: "Un indicateur ne peut etre vide. C'est le cas à la ligne :validata:rowPosition:."
   - nom: "Regex indicateur ko"
     validata:
-      fieldName: "indic_id"
+      fieldName: "identifiant_indic"
       code: "constraint-error"
       note: "constraint \"pattern\" is \"^IND-[0-9]{3}$\""
     message: "L'identifiant de l'indicateur doit être renseigné dans le format IND-XXX. Vous pouvez vous référer au guide des indicateurs pour trouver l'identifiant de votre indicateur."
-  - nom: "metric_type vi/va/vc non respectée"
+  - nom: "type_valeur vi/va/vc non respectée"
     validata:
-      fieldName: "metric_type"
+      fieldName: "type_valeur"
       code: "constraint-error"
       note: "constraint \"enum\" is \"['vi', 'va', 'vc']\""
     message: "Le type de valeur doit être vi (valeur initiale), va (valeur actuelle) ou vc (valeur cible)."
-  - nom: "metric_type VA non respectée"
+  - nom: "type_valeur VA non respectée"
     validata:
-      fieldName: "metric_type"
+      fieldName: "type_valeur"
       code: "constraint-error"
       note: "constraint \"enum\" is \"['va']\""
     message: "Le type de valeur doit être va (valeur actuelle). Vous ne pouvez saisir que des valeurs actuelles."

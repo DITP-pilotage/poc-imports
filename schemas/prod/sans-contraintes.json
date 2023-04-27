@@ -56,7 +56,7 @@
    ],
    "fields":[
       {
-         "name":"indic_id",
+         "name":"identifiant_indic",
          "description":"Identifiant de l'indicateur. Au format 'IND-XXX'",
          "example":"IND-001",
          "type":"string",
@@ -76,7 +76,7 @@
          }
       },
       {
-         "name":"metric_date",
+         "name":"date_valeur",
          "description":"Date à laquelle a été mesurée l'indicateur. Au format AAAA-MM-JJ",
          "example":"2023-01-31",
          "type":"date",
@@ -86,7 +86,7 @@
          }
       },
       {
-         "name":"metric_type",
+         "name":"type_valeur",
          "description":"Type de la donnée importée. vi/va/vc",
          "example":"vi",
          "type":"string",
@@ -100,7 +100,7 @@
          }
       },
       {
-         "name":"metric_value",
+         "name":"valeur",
          "description":"Valeur de l'indicateur",
          "example":"12.23",
          "type":"number",
@@ -110,9 +110,9 @@
       }
    ],
    "primaryKey":[
-      "indic_id",
+      "identifiant_indic",
       "zone_id",
-      "metric_date",
-      "metric_type"
+      "date_valeur",
+      "type_valeur"
    ]
 }
